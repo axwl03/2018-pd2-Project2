@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::selected_effect);
   //  connect(ui->tableWidget, &QTableWidget::cellChanged, this, &MainWindow::selected_effect);
     connect(ui->tableWidget, &QTableWidget::cellChanged, this, &MainWindow::input_font_color);
+    connect(ui->solveButton, &QPushButton::clicked, this, &MainWindow::autosolve);
 }
 
 MainWindow::~MainWindow()
@@ -156,7 +157,103 @@ void MainWindow::selected_effect(){
 void MainWindow::input_font_color(){
     int row = ui->tableWidget->currentRow();
     int column = ui->tableWidget->currentColumn();
-    if(map.at(9*row+column) == 0)
+    if(map.at(9*row+column) == 0) {
         ui->tableWidget->item(row,column)->setForeground(Qt::blue);
-    ui->tableWidget->item(row,column)->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->item(row,column)->setTextAlignment(Qt::AlignCenter);
+    }
 }
+void MainWindow::autosolve(){
+    client_map = map;
+    int i = 0, j;
+    bool p = true;
+    while(i < 81) {
+        p = true;
+        if(map.at(i) == 0) {
+            ++client_map[i];
+
+            //check whether success
+            while(client_map[i] > 9 || check_row(i) != true || check_column(i) != true || check_cell(i) != true) {
+                ++client_map[i]; //try next number till success
+                //if no possible number could try, jump to last number
+                if(client_map[i] > 9) {
+                    client_map[i] = 0;
+                    for(j = i - 1; map.at(j) != 0; --j);
+                    p = false;
+                    i = j;
+                    break;
+                }
+            }
+        }
+        if(p == true)
+            ++i;
+    }
+    QString str;
+    for(int m = 0; m < size; ++m) {
+        if(map.at(m) == 0) {
+            str = QString::number(client_map.at(m));
+            ui->tableWidget->setItem(m/9, m%9, new QTableWidgetItem(str));
+            ui->tableWidget->item(m/9,m%9)->setForeground(Qt::blue);
+            ui->tableWidget->item(m/9,m%9)->setTextAlignment(Qt::AlignCenter);
+        }
+    }
+}
+bool MainWindow::check_row(int i){
+    int row = i/9;
+    for(int j = 0; j < 9; ++j)
+        if(i != j+9*row && client_map.at(i) == client_map.at(j+9*row))
+            return false;
+    return true;
+}
+bool MainWindow::check_column(int i){
+    int column = i%9;
+    for(int j = 0; j < 9; ++j)
+        if(i != 9*j+column && client_map.at(i) == client_map.at(9*j+column))
+            return false;
+    return true;
+}
+bool MainWindow::check_cell(int i) {
+    int row, column;
+    if(i / 9 >= 0 && i / 9 <= 2)
+        row = 0;
+    if(i / 9 >= 3 && i / 9 <= 5)
+        row = 3;
+    if(i / 9 >= 6 && i / 9 <= 8)
+        row = 6;
+    if(i % 9 >= 0 && i % 9 <= 2)
+        column = 0;
+    if(i % 9 >= 3 && i % 9 <= 5)
+        column = 3;
+    if(i % 9 >= 6 && i % 9 <= 8)
+        column = 6;
+    for(int m = 0; m < 3; ++m)
+        for(int n = 0; n < 3; ++n) {
+            if(i != 9*(row+m)+column+n && client_map.at(i) == client_map.at(9*(row+m)+column+n))
+                return false;
+        }
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

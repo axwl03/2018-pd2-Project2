@@ -21,6 +21,11 @@ public:
     int get_element(int row, int column);
     bool check(QVector<int> v);
     bool check_map(void);
+
+    void autosolve(void);
+    bool check_row(int i);
+    bool check_column(int i);
+    bool check_cell(int i);
     static const int size = 81;
 
 
