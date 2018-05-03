@@ -5,20 +5,21 @@
 #include <QTableWidget>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QDateTime>
+#include <QKeyEvent>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     read_map();
+    set_map();
     client_map = map;
-
-    connect(ui->startButton, &QPushButton::clicked, this, &MainWindow::set_map);
+    autosolve();
     connect(ui->tableWidget, &QTableWidget::itemChanged, this, &MainWindow::check_authority);
     connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::selected_effect);
-  //  connect(ui->tableWidget, &QTableWidget::cellChanged, this, &MainWindow::selected_effect);
-    connect(ui->tableWidget, &QTableWidget::cellChanged, this, &MainWindow::input_font_color);
-    connect(ui->solveButton, &QPushButton::clicked, this, &MainWindow::autosolve);
+    connect(ui->tableWidget, &QTableWidget::itemChanged, this, &MainWindow::selected_same_number);
+    connect(ui->solveButton, &QPushButton::clicked, this, &MainWindow::show_answer);
 }
 
 MainWindow::~MainWindow()
@@ -37,7 +38,17 @@ void MainWindow::check_authority(){
             QMessageBox::information(this, "Oops!!", "You could not change the question's element");
             return;
         }
-    client_map[9*row+column] = get_element(row,column);
+    //set font color
+    if(map.at(9*row+column) == 0) {
+        ui->tableWidget->item(row,column)->setForeground(Qt::blue);
+        ui->tableWidget->item(row,column)->setTextAlignment(Qt::AlignCenter);
+    }
+    if(get_element(row,column) >= 1 && get_element(row,column) <= 9)
+        client_map[9*row+column] = get_element(row,column);
+    else {
+        str = "\0";
+    //    ui->tableWidget->setItem(row, column, new QTableWidgetItem(str));
+    }
 }
 
 void MainWindow::set_map() {
@@ -58,7 +69,16 @@ void MainWindow::read_map() {
     if (!myfile.open(QIODevice::ReadOnly))
         QMessageBox::warning(this, "Oops!", "file not open");
     QTextStream input(&myfile);
-    QString set_map = input.readAll();
+    qsrand(QDateTime::currentMSecsSinceEpoch());
+    QString set_map;
+    int i = qrand()%4+1;
+    while(1){
+        if(input.readLine() == QString::number(i)) {
+            for(int i = 0; i < 9; ++i)
+                set_map.append(input.readLine());
+            break;
+        }
+    }
     myfile.close();
 
     //store into map
@@ -83,19 +103,19 @@ bool MainWindow::check(QVector<int> v){
             return false;
     return true;
 }
-bool MainWindow::check_map(){
+bool MainWindow::check_map(QVector<int> vector){
     QVector<int> v(9);
     //check row
     for(int i = 0; i < size; i+=9)
         for(int j = 0; j < 9; ++j)
-            v[j] = client_map.at(i + j);
+            v[j] = vector.at(i + j);
     if(check(v) == false)
         return false;
 
     //check column
     for(int i = 0; i < 9; ++i)
         for(int j = 0; j < 9; ++j)
-            v[j] = client_map.at(i + 9*j);
+            v[j] = vector.at(i + 9*j);
     if(check(v) == false)
         return false;
 
@@ -103,7 +123,7 @@ bool MainWindow::check_map(){
     for(int m = 0; m <= 60; m += 3) {
         for(int i = 0; i < 3; ++i)
             for(int j = 0; j < 3; ++j)
-                v[3 * i + j] = client_map.at(9 * i + j + m);
+                v[3 * i + j] = vector.at(9 * i + j + m);
         if(m == 6 || m == 33)
             m += 18;
     }
@@ -112,9 +132,7 @@ bool MainWindow::check_map(){
     return true;
 }
 void MainWindow::selected_effect(){
-    for(int i = 0; i < 9; ++i)
-        for(int j = 0; j < 9; ++j)
-            ui->tableWidget->item(i,j)->setBackground(QColor(0,0,0,0));
+    clear_selected();
     int row = ui->tableWidget->currentRow();
     int column = ui->tableWidget->currentColumn();
     for(int i = 0; i < 9; ++i) {
@@ -147,36 +165,36 @@ void MainWindow::selected_effect(){
             }
         }
     }
+}
+void MainWindow::clear_selected(){
+    for(int i = 0; i < 9; ++i)
+        for(int j = 0; j < 9; ++j)
+            ui->tableWidget->item(i,j)->setBackground(QColor(0,0,0,0));
+}
+void MainWindow::selected_same_number(){
+    int row = ui->tableWidget->currentRow();
+    int column = ui->tableWidget->currentColumn();
     for(int i = 0; i < 9; ++i)
         for(int j = 0; j < 9; ++j) {
             if(ui->tableWidget->item(i,j)->text() == ui->tableWidget->item(row,column)->text() && ui->tableWidget->item(i,j)->text() != "\0")
                 ui->tableWidget->item(i,j)->setBackground(Qt::gray);
         }
 }
-
-void MainWindow::input_font_color(){
-    int row = ui->tableWidget->currentRow();
-    int column = ui->tableWidget->currentColumn();
-    if(map.at(9*row+column) == 0) {
-        ui->tableWidget->item(row,column)->setForeground(Qt::blue);
-        ui->tableWidget->item(row,column)->setTextAlignment(Qt::AlignCenter);
-    }
-}
 void MainWindow::autosolve(){
-    client_map = map;
+    ans_map = map;
     int i = 0, j;
     bool p = true;
     while(i < 81) {
         p = true;
         if(map.at(i) == 0) {
-            ++client_map[i];
+            ++ans_map[i];
 
             //check whether success
-            while(client_map[i] > 9 || check_row(i) != true || check_column(i) != true || check_cell(i) != true) {
-                ++client_map[i]; //try next number till success
+            while(ans_map[i] > 9 || check_row(i) != true || check_column(i) != true || check_cell(i) != true) {
+                ++ans_map[i]; //try next number till success
                 //if no possible number could try, jump to last number
-                if(client_map[i] > 9) {
-                    client_map[i] = 0;
+                if(ans_map[i] > 9) {
+                    ans_map[i] = 0;
                     for(j = i - 1; map.at(j) != 0; --j);
                     p = false;
                     i = j;
@@ -187,27 +205,33 @@ void MainWindow::autosolve(){
         if(p == true)
             ++i;
     }
+    if(check_map(ans_map) == false)
+        QMessageBox::information(this, "Oops!", "Could not solve");
+}
+void MainWindow::show_answer(void){
     QString str;
     for(int m = 0; m < size; ++m) {
         if(map.at(m) == 0) {
-            str = QString::number(client_map.at(m));
+            str = QString::number(ans_map.at(m));
             ui->tableWidget->setItem(m/9, m%9, new QTableWidgetItem(str));
             ui->tableWidget->item(m/9,m%9)->setForeground(Qt::blue);
             ui->tableWidget->item(m/9,m%9)->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->item(m/9, m%9)->setBackground(QColor(0,0,0,0));
         }
     }
+    clear_selected();
 }
 bool MainWindow::check_row(int i){
     int row = i/9;
     for(int j = 0; j < 9; ++j)
-        if(i != j+9*row && client_map.at(i) == client_map.at(j+9*row))
+        if(i != j+9*row && ans_map.at(i) == ans_map.at(j+9*row))
             return false;
     return true;
 }
 bool MainWindow::check_column(int i){
     int column = i%9;
     for(int j = 0; j < 9; ++j)
-        if(i != 9*j+column && client_map.at(i) == client_map.at(9*j+column))
+        if(i != 9*j+column && ans_map.at(i) == ans_map.at(9*j+column))
             return false;
     return true;
 }
@@ -227,33 +251,19 @@ bool MainWindow::check_cell(int i) {
         column = 6;
     for(int m = 0; m < 3; ++m)
         for(int n = 0; n < 3; ++n) {
-            if(i != 9*(row+m)+column+n && client_map.at(i) == client_map.at(9*(row+m)+column+n))
+            if(i != 9*(row+m)+column+n && ans_map.at(i) == ans_map.at(9*(row+m)+column+n))
                 return false;
         }
     return true;
 }
+void MainWindow::keyPressEvent(QKeyEvent *d){
+    int row = ui->tableWidget->currentRow();
+    int column = ui->tableWidget->currentColumn();
+    if((d->key() == Qt::Key_Delete || d->key() == Qt::Key_0) && map.at(9*row+column) == 0)
+        ui->tableWidget->setItem(row, column, new QTableWidgetItem("\0"));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void MainWindow::on_clearButton_clicked()
+{
+    set_map();
+}
