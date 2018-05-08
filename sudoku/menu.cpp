@@ -19,3 +19,9 @@ void Menu::on_pushButton_clicked()
     main = new MainWindow;
     main->show();
 }
+
+void Menu::on_pushButton_2_clicked()
+{
+    C = new custom;
+    C->show();
+}
