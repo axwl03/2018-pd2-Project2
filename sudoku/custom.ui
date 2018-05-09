@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
-    <height>386</height>
+    <width>450</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>40</x>
       <y>40</y>
-      <width>227</width>
-      <height>227</height>
+      <width>362</width>
+      <height>362</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -489,6 +489,11 @@
       </disabled>
      </palette>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
     <property name="cursor" stdset="0">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
@@ -556,7 +561,7 @@
      <bool>false</bool>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>25</number>
+     <number>40</number>
     </attribute>
     <attribute name="horizontalHeaderHighlightSections">
      <bool>false</bool>
@@ -565,7 +570,7 @@
      <bool>false</bool>
     </attribute>
     <attribute name="verticalHeaderDefaultSectionSize">
-     <number>25</number>
+     <number>40</number>
     </attribute>
     <attribute name="verticalHeaderHighlightSections">
      <bool>false</bool>
@@ -1244,8 +1249,8 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>190</y>
-      <width>227</width>
+      <y>280</y>
+      <width>362</width>
       <height>2</height>
      </rect>
     </property>
@@ -1683,7 +1688,7 @@
       <x>40</x>
       <y>40</y>
       <width>2</width>
-      <height>227</height>
+      <height>362</height>
      </rect>
     </property>
     <property name="palette">
@@ -1791,8 +1796,8 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>113</y>
-      <width>227</width>
+      <y>160</y>
+      <width>362</width>
       <height>2</height>
      </rect>
     </property>
@@ -2228,8 +2233,8 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>265</y>
-      <width>227</width>
+      <y>400</y>
+      <width>362</width>
       <height>2</height>
      </rect>
     </property>
@@ -2664,10 +2669,10 @@
    <widget class="Line" name="line_3">
     <property name="geometry">
      <rect>
-      <x>114</x>
+      <x>160</x>
       <y>40</y>
       <width>2</width>
-      <height>227</height>
+      <height>362</height>
      </rect>
     </property>
     <property name="palette">
@@ -2774,10 +2779,10 @@
    <widget class="Line" name="line_4">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>280</x>
       <y>40</y>
       <width>2</width>
-      <height>227</height>
+      <height>362</height>
      </rect>
     </property>
     <property name="palette">
@@ -2884,10 +2889,10 @@
    <widget class="Line" name="line_7">
     <property name="geometry">
      <rect>
-      <x>265</x>
+      <x>400</x>
       <y>40</y>
       <width>2</width>
-      <height>227</height>
+      <height>362</height>
      </rect>
     </property>
     <property name="palette">
@@ -3431,11 +3436,16 @@
    <widget class="QPushButton" name="inputButton">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>290</y>
-      <width>151</width>
-      <height>25</height>
+      <x>130</x>
+      <y>440</y>
+      <width>200</width>
+      <height>35</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>input and play</string>
@@ -3447,7 +3457,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>311</width>
+     <width>450</width>
      <height>22</height>
     </rect>
    </property>
