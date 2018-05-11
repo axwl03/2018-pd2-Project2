@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>549</height>
+    <height>803</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -3433,10 +3433,20 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>510</y>
+      <width>261</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QPushButton" name="inputButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>120</x>
       <y>440</y>
       <width>200</width>
       <height>35</height>

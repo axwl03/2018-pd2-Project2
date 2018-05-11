@@ -40,13 +40,16 @@ public slots:
     void clear_selected(void);
     void on_clearButton_clicked();
 
+private slots:
+    void on_refreshButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QVector<int> map;
     QVector<int> client_map;
     QVector<int> ans_map;
     QVector<int> old_map;
-    bool state;
+    bool state, checkDisable;
 };
 
 #endif // MAINWINDOW_H

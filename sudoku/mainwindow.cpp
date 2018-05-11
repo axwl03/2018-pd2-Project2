@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    checkDisable = 0;
     state = 0;
     set_map(0, read_map());
     client_map = map;
@@ -27,6 +28,7 @@ MainWindow::MainWindow(QVector<int> m, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    checkDisable = 0;
     set_map(0, m);
     state = 0;
     client_map = map;
@@ -45,7 +47,7 @@ MainWindow::~MainWindow()
 void MainWindow::client_input(){
     int row = ui->tableWidget->currentRow();
     int column = ui->tableWidget->currentColumn();
-    if(map.at(9*row+column) != 0 && get_element(row,column) != map.at(9*row+column)){
+    if(map.at(9*row+column) != 0 && get_element(row,column) != map.at(9*row+column) && checkDisable == 0){
         set_element(row, column, map.at(9*row+column));
         QMessageBox::information(this, "Oops!!", "You could not change the question's element");
         return;
@@ -79,13 +81,17 @@ void MainWindow::client_input(){
         }
     }
     if(state == 0 && check_map(client_map) == true){
+        ++state;
         QMessageBox msgBox;
         msgBox.setText("Congratulations!!!");
         msgBox.setInformativeText("Try again?");
         msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);
         int ret = msgBox.exec();
-        ++state;
+        if(ret == QMessageBox::Retry){
+            msgBox.close();
+            on_refreshButton_clicked();
+        }
     }
 }
 
@@ -343,4 +349,15 @@ int MainWindow::cell_number(int row, int column){
         if(column >= 6 && column <= 8)
             return 9;
     }return 0;
+}
+void MainWindow::on_refreshButton_clicked()
+{
+    ++checkDisable;
+    map.clear();
+    state = 0;
+    set_map(0, read_map());
+    client_map = map;
+    old_map = client_map;
+    autosolve(ans_map);
+    checkDisable = 0;
 }

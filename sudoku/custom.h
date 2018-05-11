@@ -23,6 +23,14 @@ public:
     void selected_same_number();
     void clear_selected();
     int cell_number(int row, int column);
+    void set_random_slot(QVector<int> &m);
+
+    bool check(QVector<int> v);
+    bool check_map(QVector<int> vector);
+    void autosolve(QVector<int> &m);
+    bool check_row(int i, QVector<int> &m);
+    bool check_column(int i, QVector<int> &m);
+    bool check_cell(int i, QVector<int> &m);
 
 private slots:
     void on_inputButton_clicked();
@@ -31,6 +39,7 @@ private:
     Ui::custom *ui;
     QVector<int> client_map;
     QVector<int> old_map;
+    QVector<int> map;
     MainWindow *main;
 };
 

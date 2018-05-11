@@ -115,15 +115,6 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="Window">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>238</red>
-        <green>238</green>
-        <blue>236</blue>
-       </color>
-      </brush>
-     </colorrole>
      <colorrole role="Shadow">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -252,15 +243,6 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="Window">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>238</red>
-        <green>238</green>
-        <blue>236</blue>
-       </color>
-      </brush>
-     </colorrole>
      <colorrole role="Shadow">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -383,18 +365,9 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>238</red>
-        <green>238</green>
-        <blue>236</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="Window">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>238</red>
-        <green>238</green>
-        <blue>236</blue>
+        <red>7</red>
+        <green>27</green>
+        <blue>100</blue>
        </color>
       </brush>
      </colorrole>
@@ -448,7 +421,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>30</y>
+      <y>50</y>
       <width>362</width>
       <height>362</height>
      </rect>
@@ -1692,7 +1665,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>150</y>
+      <y>170</y>
       <width>362</width>
       <height>2</height>
      </rect>
@@ -2129,7 +2102,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>270</y>
+      <y>290</y>
       <width>362</width>
       <height>2</height>
      </rect>
@@ -2566,7 +2539,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>30</y>
+      <y>50</y>
       <width>2</width>
       <height>362</height>
      </rect>
@@ -2676,7 +2649,7 @@
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>30</y>
+      <y>50</y>
       <width>2</width>
       <height>362</height>
      </rect>
@@ -2786,7 +2759,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>30</y>
+      <y>50</y>
       <width>362</width>
       <height>2</height>
      </rect>
@@ -3223,7 +3196,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>390</y>
+      <y>410</y>
       <width>362</width>
       <height>2</height>
      </rect>
@@ -3660,7 +3633,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>30</y>
+      <y>50</y>
       <width>2</width>
       <height>362</height>
      </rect>
@@ -3770,7 +3743,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>30</y>
+      <y>50</y>
       <width>2</width>
       <height>362</height>
      </rect>
@@ -3887,6 +3860,19 @@
     </property>
     <property name="text">
      <string>clear</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="refreshButton">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>250</y>
+      <width>100</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>refresh</string>
     </property>
    </widget>
   </widget>
