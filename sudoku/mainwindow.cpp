@@ -177,7 +177,7 @@ QVector<int> & MainWindow::read_map() {
     QTextStream input(&myfile);
     qsrand(QDateTime::currentMSecsSinceEpoch());
     QString set_map;
-    int r = qrand()%4+1;
+    int r = qrand()%8+1;
     while(1){
         if(input.readLine() == QString::number(r)) {
             for(int i = 0; i < 9; ++i)
