@@ -66,13 +66,6 @@ void custom::on_inputButton_clicked()
             break;
         else client_map = ans;
     }
-    QString str;
-    for(int i = 0; i < 81; ++i){
-        str.append(QString::number(map.at(i)));
-        str.append(' ');
-        if(i%9 == 8)
-            str.append('\n');
-    }ui->textEdit->setText(str);
     main = new MainWindow(map);
     main->show();
     close();

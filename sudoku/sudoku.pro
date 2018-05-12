@@ -27,16 +27,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     menu.cpp \
-    custom.cpp
+    custom.cpp \
+    rank.cpp
 
 HEADERS += \
         mainwindow.h \
     menu.h \
-    custom.h
+    custom.h \
+    rank.h
 
 FORMS += \
         mainwindow.ui \
     menu.ui \
-    custom.ui
+    custom.ui \
+    rank.ui
 
 RESOURCES +=

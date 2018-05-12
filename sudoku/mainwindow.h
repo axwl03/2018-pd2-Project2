@@ -30,6 +30,7 @@ public:
     bool check_cell(int i, QVector<int> &m);
     void show_answer(void);
     void keyPressEvent(QKeyEvent *d);
+    void save_score(int t);
     static const int size = 81;
 
 
@@ -39,6 +40,7 @@ public slots:
     void selected_effect(void);
     void clear_selected(void);
     void on_clearButton_clicked();
+    QString update();
 
 private slots:
     void on_refreshButton_clicked();
@@ -50,6 +52,8 @@ private:
     QVector<int> ans_map;
     QVector<int> old_map;
     bool state, checkDisable;
+    int time;
+    QTimer *timer;
 };
 
 #endif // MAINWINDOW_H

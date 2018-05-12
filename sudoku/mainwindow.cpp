@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "menu.h"
 #include <QVector>
 #include <QFile>
 #include <QTableWidget>
@@ -8,6 +9,7 @@
 #include <QDateTime>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QTimer>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -22,6 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tableWidget, &QTableWidget::itemChanged, this, &MainWindow::client_input);
     connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::selected_effect);
     connect(ui->solveButton, &QPushButton::clicked, this, &MainWindow::show_answer);
+    ui->lcdNumber->display("00:00");
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    timer->start(1000);
+    time = 0;
 }
 MainWindow::MainWindow(QVector<int> m, QWidget *parent) :
     QMainWindow(parent),
@@ -37,12 +44,31 @@ MainWindow::MainWindow(QVector<int> m, QWidget *parent) :
     connect(ui->tableWidget, &QTableWidget::itemChanged, this, &MainWindow::client_input);
     connect(ui->tableWidget, &QTableWidget::itemSelectionChanged, this, &MainWindow::selected_effect);
     connect(ui->solveButton, &QPushButton::clicked, this, &MainWindow::show_answer);
+    ui->lcdNumber->display("00:00");
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    timer->start(1000);
+    time = 0;
 }
 
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+QString MainWindow::update(){
+    QString str;
+    if(state == 0)
+        ++time;
+    if(time/60 < 10)
+        str.append('0');
+    str.append(QString::number(time/60));
+    str.append(':');
+    if(time%60 < 10)
+        str.append('0');
+    str.append(QString::number(time%60));
+    ui->lcdNumber->display(str);
+    return str;
 }
 void MainWindow::client_input(){
     int row = ui->tableWidget->currentRow();
@@ -84,13 +110,18 @@ void MainWindow::client_input(){
         ++state;
         QMessageBox msgBox;
         msgBox.setText("Congratulations!!!");
-        msgBox.setInformativeText("Try again?");
+        QString str = "Your score is ";
+        str.append(update());
+        str.append(". \nTry again?");
+        msgBox.setInformativeText(str);
+        save_score(time);
         msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);
         int ret = msgBox.exec();
         if(ret == QMessageBox::Retry){
-            msgBox.close();
-            on_refreshButton_clicked();
+            close();
+            MainWindow *main2 = new MainWindow;
+            main2->show();
         }
     }
 }
@@ -128,6 +159,15 @@ void MainWindow::set_map(bool exist, const QVector<int> &temp) {
         for(int j = 0; j < 9; ++j){
             set_element(i, j, map.at(9*i+j));
         }
+}
+void MainWindow::save_score(int t){
+    QFile myfile("rank");
+    if (!myfile.open(QIODevice::Append))
+        QMessageBox::warning(this, "Oops!", "file not open");
+    QTextStream output(&myfile);
+    output << QString::number(t);
+    output << "\n";
+    myfile.close();
 }
 QVector<int> & MainWindow::read_map() {
     //read text file question
@@ -354,10 +394,12 @@ void MainWindow::on_refreshButton_clicked()
 {
     ++checkDisable;
     map.clear();
-    state = 0;
     set_map(0, read_map());
     client_map = map;
     old_map = client_map;
     autosolve(ans_map);
     checkDisable = 0;
+    time = 0;
+    state = 0;
+    ui->lcdNumber->display("00:00");
 }

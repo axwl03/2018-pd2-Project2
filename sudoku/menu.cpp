@@ -25,3 +25,9 @@ void Menu::on_pushButton_2_clicked()
     C = new custom;
     C->show();
 }
+
+void Menu::on_pushButton_3_clicked()
+{
+    score = new rank;
+    score->show();
+}

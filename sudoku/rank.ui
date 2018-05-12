@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Menu</class>
- <widget class="QMainWindow" name="Menu">
+ <class>rank</class>
+ <widget class="QMainWindow" name="rank">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
-    <height>243</height>
+    <width>294</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="palette">
@@ -75,22 +75,40 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Menu</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>35</y>
-      <width>120</width>
-      <height>35</height>
+      <x>45</x>
+      <y>30</y>
+      <width>231</width>
+      <height>411</height>
      </rect>
     </property>
     <property name="palette">
      <palette>
       <active>
-       <colorrole role="Button">
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>124</red>
+          <green>176</green>
+          <blue>176</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>124</red>
+          <green>176</green>
+          <blue>176</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>55</red>
@@ -99,27 +117,18 @@
          </color>
         </brush>
        </colorrole>
-       <colorrole role="ButtonText">
+       <colorrole role="Window">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>124</red>
-          <green>176</green>
-          <blue>176</blue>
+          <red>55</red>
+          <green>65</green>
+          <blue>71</blue>
          </color>
         </brush>
        </colorrole>
       </active>
       <inactive>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>55</red>
-          <green>65</green>
-          <blue>71</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
+       <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>124</red>
@@ -128,9 +137,16 @@
          </color>
         </brush>
        </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="Button">
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>124</red>
+          <green>176</green>
+          <blue>176</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>55</red>
@@ -139,7 +155,18 @@
          </color>
         </brush>
        </colorrole>
-       <colorrole role="ButtonText">
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>55</red>
+          <green>65</green>
+          <blue>71</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>190</red>
@@ -148,89 +175,7 @@
          </color>
         </brush>
        </colorrole>
-      </disabled>
-     </palette>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>13</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>play</string>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>90</y>
-      <width>120</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>55</red>
-          <green>65</green>
-          <blue>71</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>124</red>
-          <green>176</green>
-          <blue>176</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>55</red>
-          <green>65</green>
-          <blue>71</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>124</red>
-          <green>176</green>
-          <blue>176</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>55</red>
-          <green>65</green>
-          <blue>71</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
+       <colorrole role="Text">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>190</red>
@@ -239,40 +184,7 @@
          </color>
         </brush>
        </colorrole>
-      </disabled>
-     </palette>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>13</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Custom Puzzle</string>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>145</y>
-      <width>120</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="Button">
+       <colorrole role="Base">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>55</red>
@@ -281,52 +193,12 @@
          </color>
         </brush>
        </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>124</red>
-          <green>176</green>
-          <blue>176</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="Button">
+       <colorrole role="Window">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
           <red>55</red>
           <green>65</green>
           <blue>71</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>124</red>
-          <green>176</green>
-          <blue>176</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>55</red>
-          <green>65</green>
-          <blue>71</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>190</red>
-          <green>190</green>
-          <blue>190</blue>
          </color>
         </brush>
        </colorrole>
@@ -335,20 +207,23 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>13</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string>Rank</string>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
-    <property name="autoDefault">
-     <bool>false</bool>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
-    <property name="default">
-     <bool>false</bool>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
-    <property name="flat">
-     <bool>true</bool>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="tabStopWidth">
+     <number>60</number>
     </property>
    </widget>
   </widget>
